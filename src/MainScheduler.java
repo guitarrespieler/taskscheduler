@@ -8,7 +8,7 @@ public class MainScheduler implements Scheduler{
 	public void addTask(Task newTask) {
 		if(readyTasks.size() > 10)	//10 taszknál több nem fér be, kilépünk
 			return;
-		readyTasks.add(newTask);		
+		readyTasks.add(newTask);
 	}
 	@Override
 	public Task getNext() {

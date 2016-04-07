@@ -1,6 +1,7 @@
+import java.util.ArrayList;
 
 public class RRScheduler implements Scheduler{
-
+	ArrayList<Task> tasks = new ArrayList(10);
 	@Override
 	public void addTask(Task newTask) {
 		// TODO Auto-generated method stub
