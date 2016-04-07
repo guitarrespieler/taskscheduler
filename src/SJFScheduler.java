@@ -1,10 +1,10 @@
+import java.util.ArrayList;
 
 public class SJFScheduler implements Scheduler{
-
+	ArrayList<Task> tasks = new ArrayList(10);
 	@Override
 	public void addTask(Task newTask) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
