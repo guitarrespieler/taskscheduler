@@ -6,12 +6,13 @@ public class Task {
 	private int cpuBurst = 0;
 	private int waitingTime = 0;	
 
-	public void run(){
+	public void run(int runningtime){
 		int counter = 0;
-		while(counter != 500)
+		while(counter != 500*runningtime)
 			counter++;//doing some stuff...
-		cpuBurst--;
+		cpuBurst-= runningtime;
 	}
+	
 	
 	public int getWaitingTime() {
 		return waitingTime;

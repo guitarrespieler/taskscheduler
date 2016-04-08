@@ -3,9 +3,11 @@ import java.util.ArrayList;
 public class MainScheduler{
 	private Scheduler firstLevelSch = new SJFScheduler();
 	private Scheduler secondLevelSch = new RRScheduler();
-	private ArrayList<Task> tasks = new ArrayList<Task>(10); //
+	private int counter = 0;
 	
-	private int interruptCounter = 0;
+	private ArrayList<Task> tasks = new ArrayList<Task>(10);
+	
+	private Task idle = new Task("Idle",0,0,42);
 	private ArrayList<Task> run = new ArrayList<Task>();
 	
 	public void addTask(Task newTask) {
@@ -19,16 +21,14 @@ public class MainScheduler{
 		firstLevelSch.order();
 		secondLevelSch.order();
 		
-		while(interruptCounter < 42){	//if there was 42 cycles without 
+		while(idle.getCpuBurst() > 0){	//if there was 42 cycles without 
 										//new task, exit from loop
-			Task temp1 = firstLevelSch.getNext();
-			if(temp1 != null)
-				run(temp1);
-			Task temp2 = secondLevelSch.getNext();
-			if(temp2 != null)
-				run(temp2);
-			if(temp1 == null && temp2 == null)
-				idle();					//There is nothing to run, call idle task
+			int sjf = firstLevelSch.runTask();
+			
+			int rr = secondLevelSch.runTask();
+			
+			if(sjf == 0 && rr == 0)
+//				idle.run();					//There is nothing to run, call idle task
 		}
 		stop();
 	}
@@ -62,11 +62,5 @@ public class MainScheduler{
 	 */
 	public void run(Task t){
 		run.add(t);
-	}
-	/**
-	 * Something like Idle task, it increments the interruptCounter
-	 */
-	public int idle(){
-		return interruptCounter++;
 	}
 }

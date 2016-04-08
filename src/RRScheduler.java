@@ -9,14 +9,18 @@ public class RRScheduler implements Scheduler{
 	}
 
 	@Override
-	public Task getNext() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void order() {
 		// TODO Auto-generated method stub
+		
+	}
+
+	/**
+	 * *return - number of tasks run( 0 - 0 task started run)
+	 */
+	public int runTask(int counter) {
+		if(tasks.isEmpty())
+			return 0;
+		return 1;
 		
 	}
 
