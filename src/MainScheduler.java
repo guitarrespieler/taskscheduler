@@ -1,32 +1,26 @@
 import java.util.ArrayList;
 
-public class MainScheduler implements Scheduler{
-	private SJFScheduler firstLevelSch = new SJFScheduler();
-	private RRScheduler secondLevelSch = new RRScheduler();
-	private ArrayList<Task> tasks = new ArrayList<Task>(10);
+public class MainScheduler{
+	private Scheduler firstLevelSch = new SJFScheduler();
+	private Scheduler secondLevelSch = new RRScheduler();
+	private ArrayList<Task> tasks = new ArrayList<Task>(10); //
 	
 	private int interruptCounter = 0;
-	private ArrayList<Task> run = new ArrayList();
+	private ArrayList<Task> run = new ArrayList<Task>();
 	
 	public void addTask(Task newTask) {
 		if(tasks.size() > 10)	//10 taszknál több nem fér be, kilépünk
 			return;
-		tasks.add(newTask);
-	}
-	@Override
-	public Task getNext() {
-		if (tasks.size() == 0)
-			return null;
-		return tasks.get(0);
+		order(newTask);
 	}
 	
 	public void start() {
-		order();
+		
 		firstLevelSch.order();
 		secondLevelSch.order();
 		
 		while(interruptCounter < 42){	//if there was 42 cycles without 
-										//new task, exit
+										//new task, exit from loop
 			Task temp1 = firstLevelSch.getNext();
 			if(temp1 != null)
 				run(temp1);
@@ -34,7 +28,7 @@ public class MainScheduler implements Scheduler{
 			if(temp2 != null)
 				run(temp2);
 			if(temp1 == null && temp2 == null)
-				interruptCounter++;
+				idle();					//There is nothing to run, call idle task
 		}
 		stop();
 	}
@@ -46,28 +40,33 @@ public class MainScheduler implements Scheduler{
 		for(int i = 0; i < run.size(); i++)
 			System.out.print(run.get(i).getName());
 		System.out.println();
-		for(int i = 0; i < run.size(); i++){
-			Task temp = run.get(i);
+		for(int i = 0; i < tasks.size(); i++){
+			Task temp = tasks.get(i);
 			System.out.print(temp.getName()+":"+temp.getWaitingTime());
-			if(i<run.size()-1)
+			if(i<tasks.size()-1)
 				System.out.print(",");
 		}
 	}
 	/**
 	 * Organizes the tasks between the two scheduler.
 	 */
-	public void order() {
-		for(int i = 0; i < tasks.size(); i++){
-			Task temp = tasks.get(i);
-			if(temp.getPriority() > 4)
-				secondLevelSch.addTask(temp);
+	public void order(Task t) {
+			if(t.getPriority() > 4)
+				secondLevelSch.addTask(t);
 			else
-				firstLevelSch.addTask(temp);
-		}		
+				firstLevelSch.addTask(t);		
 	}
+	/**
+	 * Puts the given task into the run list
+	 * @param t
+	 */
 	public void run(Task t){
 		run.add(t);
 	}
-	
-
+	/**
+	 * Something like Idle task, it increments the interruptCounter
+	 */
+	public int idle(){
+		return interruptCounter++;
+	}
 }

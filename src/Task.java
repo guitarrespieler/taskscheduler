@@ -4,8 +4,15 @@ public class Task {
 	private int priority = 0;
 	private int startTime = 0;
 	private int cpuBurst = 0;
-	private int waitingTime = 0;
+	private int waitingTime = 0;	
 
+	public void run(){
+		int counter = 0;
+		while(counter != 500)
+			counter++;//doing some stuff...
+		cpuBurst--;
+	}
+	
 	public int getWaitingTime() {
 		return waitingTime;
 	}
