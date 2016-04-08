@@ -4,20 +4,21 @@ public class Task {
 	private int priority = 0;
 	private int startTime = 0;
 	private int cpuBurst = 0;
+	private int waitingTime = 0;
 
 	/**
 	 * A taszk konstruktora, a kapott paraméterekbõl
 	 * létrehozza a kívánt taszk-példányt.
-	 * @param nev - a taszk neve
+	 * @param taskname - a taszk neve
 	 * @param prior - a taszk priorítása(0-9)
-	 * @param kezdoido - a taszk indítási ideje, a következõ idõszeletben már futhat(>=0)
-	 * @param cpuloket - a taszk löketideje (>=1)
+	 * @param starttime - a taszk indítási ideje, a következõ idõszeletben már futhat(>=0)
+	 * @param burst - a taszk löketideje (>=1)
 	 */
-	Task(String nev, int prior, int kezdoido,int cpuloket){
-		name = nev;
+	Task(String taskname, int prior, int starttime,int burst){
+		name = taskname;
 		priority = prior;
-		startTime = kezdoido;
-		cpuBurst = cpuloket;
+		startTime = starttime;
+		cpuBurst = burst;
 	}
 	
 	public String getName() {

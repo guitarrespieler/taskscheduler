@@ -14,4 +14,16 @@ public class RRScheduler implements Scheduler{
 		return null;
 	}
 
+	@Override
+	public void start() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void rendez() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
