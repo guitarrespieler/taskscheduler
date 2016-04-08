@@ -14,13 +14,7 @@ public class SJFScheduler implements Scheduler{
 	}
 
 	@Override
-	public void start() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void rendez() {
+	public void order() {
 		// TODO Auto-generated method stub
 		
 	}

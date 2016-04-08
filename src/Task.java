@@ -6,6 +6,14 @@ public class Task {
 	private int cpuBurst = 0;
 	private int waitingTime = 0;
 
+	public int getWaitingTime() {
+		return waitingTime;
+	}
+
+	public void setWaitingTime(int waitingTime) {
+		this.waitingTime = waitingTime;
+	}
+
 	/**
 	 * A taszk konstruktora, a kapott paraméterekbõl
 	 * létrehozza a kívánt taszk-példányt.
