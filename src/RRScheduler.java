@@ -22,9 +22,9 @@ public class RRScheduler implements Scheduler{
 		
 		Task task = tasks.poll();
 		
-		task.run(2);	//this RR Scheduler is preemptive - 
-						//it gives for the task 2 slices of time
-						//to run
+		task.run(timeSlice);	//this RR Scheduler is preemptive - 
+								//it gives for the task 2 slices of time
+								//to run
 		if(task.getCpuBurst() <= 0){
 			task.setWaitingTime(counter - task.getInitialCpuBurst() + task.getStartTime());//counting waiting time
 			task.setEndTime(counter);	//setting the endtime of the task

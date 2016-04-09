@@ -10,12 +10,12 @@ public class Task {
 	private int endTime = 0;
 	
 	/**
-	 * A taszk konstruktora, a kapott paraméterekbõl
-	 * létrehozza a kívánt taszk-példányt.
-	 * @param taskname - a taszk neve
-	 * @param prior - a taszk priorítása(0-9)
-	 * @param starttime - a taszk indítási ideje, a következõ idõszeletben már futhat(>=0)
-	 * @param burst - a taszk löketideje (>=1)
+	 * Ctor of the task, it creates the 
+	 * wanted task-object from the given params.
+	 * @param taskname - name of the task
+	 * @param prior - priority of the task(0-9)
+	 * @param starttime - the time when the task arrives(>=0)
+	 * @param burst - CPU-burst of the task (>=1)
 	 */
 	Task(String taskname, int prior, int starttime,int initburst){
 		name = taskname;
@@ -30,10 +30,10 @@ public class Task {
 	 */
 	public void run(int runningtime){
 		int counter = 0;
-		while(counter != 500*runningtime)
-			counter++;//doing some stuff...
+		while(counter != 500*runningtime)//doing some stuff...
+			counter++;
 		cpuBurst-= runningtime;
-		System.out.print(name);//writing out it's name
+		System.out.print(name);//writing out it's own name
 	}
 	
 	public static Comparator<Task> CpuBurstComparator = new Comparator<Task>(){
