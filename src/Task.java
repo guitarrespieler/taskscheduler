@@ -1,13 +1,13 @@
 import java.util.Comparator;
 
 public class Task {
-	private String name = "";		//name of the task ( for example: "A")
-	private int priority = 0;		//the task's priority(0..9)
-	private int startTime = 0;		//the time when the task arrives
-	private int cpuBurst = 0;		//changes dinamically
-	private int initialCpuBurst = 0;//never changes
-	private int waitingTime = 0;	//number of cycles the task has waited
-	private int endTime = 0;
+	private String name = "";			//name of the task ( for example: "A")
+	private int priority = 0;			//the task's priority(0..9)
+	private int startTime = 0;			//the time when the task arrives
+	private int remainingCpuBurst = 0;	//changes dinamically
+	private int initialCpuBurst = 0;	//never changes
+	private int waitingTime = 0;		//number of cycles the task has waited
+	private int endTime = 0;			//the time task ends its run
 	
 	/**
 	 * Ctor of the task, it creates the 
@@ -22,7 +22,7 @@ public class Task {
 		priority = prior;
 		startTime = starttime;
 		initialCpuBurst = initburst;
-		cpuBurst = initialCpuBurst;
+		remainingCpuBurst = initialCpuBurst;
 	}
 	/**
 	 * This method simulates the real tasks' runtime.
@@ -30,10 +30,10 @@ public class Task {
 	 */
 	public void run(int runningtime){
 		int counter = 0;
-		while(runningtime != 0 && cpuBurst != 0){
+		while(runningtime != 0 && remainingCpuBurst != 0){
 			while(counter != 500*runningtime)	//doing some stuff...
 				counter++;
-			cpuBurst--;							//if equals 0, break
+			remainingCpuBurst--;				//if equals 0, break
 			runningtime--;						//if equals 0, break
 		}
 		System.out.print(name);					//writing out it's own name
@@ -41,8 +41,8 @@ public class Task {
 	
 	public static Comparator<Task> CpuBurstComparator = new Comparator<Task>(){
 		public int compare(Task t1, Task t2){
-			Integer i1 = t1.cpuBurst;
-			Integer i2 = t2.cpuBurst;
+			Integer i1 = t1.remainingCpuBurst;
+			Integer i2 = t2.remainingCpuBurst;
 			return i2.compareTo(i1);
 		}		
 	};	
@@ -84,10 +84,10 @@ public class Task {
 		this.startTime = startTime;
 	}
 	public int getCpuBurst() {
-		return cpuBurst;
+		return remainingCpuBurst;
 	}
 	public void setCpuBurst(int cpuBurst) {
-		this.cpuBurst = cpuBurst;
+		this.remainingCpuBurst = cpuBurst;
 	}
 	public int getEndTime() {
 		return endTime;

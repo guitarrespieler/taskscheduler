@@ -24,25 +24,32 @@ public class MainScheduler{
 		while(interruptCounter > 0){	//if there was 42 cycles without 
 										//new task, exit from loop
 		
-		//When the task arrives, give it to the scheduler
-			for(int i = 0; i < tasks.size(); i++){
-				Task temp = tasks.get(i);
-				if(temp.getStartTime() == counter)
-					order(temp);
-			}
+		isTaskArrived();				//arrived new task?
+			
 		//run it until it has something to run
 			while(sjf != 0)
 				sjf = firstLevelSch.runTask();
+			MainScheduler.counter++;
 			
+			isTaskArrived();			//arrived new task?
 			rr = secondLevelSch.runTask();
+			MainScheduler.counter++;
 			
 			if(sjf == 0 && rr == 0)
-				interruptCounter--;
-//			counter++;
+				interruptCounter--;			
 		}
 		stop();
 	}
-
+	/**
+	 * When the task arrives, give it to the scheduler.
+	 */
+	private void isTaskArrived(){
+		for(int i = 0; i < tasks.size(); i++){
+			Task temp = tasks.get(i);
+			if(temp.getStartTime() == MainScheduler.counter)
+				order(temp);
+		}
+	}
 	/**
 	 * Writes to the standard output the order of the tasks.
 	 */

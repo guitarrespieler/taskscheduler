@@ -30,25 +30,25 @@ public class RRScheduler implements Scheduler{
 											//to run
 			MainScheduler.counter+= timeSlice;
 		}
-//		else if(cpuburstTemp < timeSlice ){
+		else if(cpuburstTemp < timeSlice ){
 //			if(tasks.isEmpty()){
-//				task.run(cpuburstTemp);		//if there is nothing longer to run, run it
-//				counter+= cpuburstTemp;
+				task.run(cpuburstTemp);		
+				MainScheduler.counter+= cpuburstTemp;
 //			}
 //			else if(!tasks.isEmpty()){
 //				this.addTask(task);			//put it back to the end of the queue,don't run
 //				return 0;
 //			}
-//		}
-		if(task.getCpuBurst() <= 0){
-			task.setWaitingTime(MainScheduler.counter - 			//counting waiting time
+		}
+		if(task.getCpuBurst() == 0){
+			task.setWaitingTime(MainScheduler.counter - 	//counting waiting time
 					task.getInitialCpuBurst() +
 					task.getStartTime());	
-			task.setEndTime(MainScheduler.counter);				//setting the endtime of the task
+			task.setEndTime(MainScheduler.counter);			//setting the endtime of the task
 		}
 			
 		else if(task.getCpuBurst() > 0)
-			addTask(task);					//put back to the end of the queue
+			addTask(task);									//put back to the end of the queue
 		
 		return 1;
 	}
