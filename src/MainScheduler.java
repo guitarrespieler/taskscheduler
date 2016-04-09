@@ -27,9 +27,11 @@ public class MainScheduler{
 		isTaskArrived();				//arrived new task?
 			
 		//run it until it has something to run
-			while(sjf != 0)
+			while(sjf != 0){
 				sjf = firstLevelSch.runTask();
-			MainScheduler.counter++;
+				MainScheduler.counter++;
+			}
+			
 			
 			isTaskArrived();			//arrived new task?
 			rr = secondLevelSch.runTask();
@@ -46,7 +48,7 @@ public class MainScheduler{
 	private void isTaskArrived(){
 		for(int i = 0; i < tasks.size(); i++){
 			Task temp = tasks.get(i);
-			if(temp.getStartTime() <= MainScheduler.counter)
+			if(temp.getStartTime() <= MainScheduler.counter && temp.getCpuBurst() == temp.getInitialCpuBurst())
 				order(temp);
 		}
 	}
