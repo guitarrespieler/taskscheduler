@@ -46,7 +46,7 @@ public class MainScheduler{
 	private void isTaskArrived(){
 		for(int i = 0; i < tasks.size(); i++){
 			Task temp = tasks.get(i);
-			if(temp.getStartTime() == MainScheduler.counter)
+			if(temp.getStartTime() <= MainScheduler.counter)
 				order(temp);
 		}
 	}
@@ -54,6 +54,7 @@ public class MainScheduler{
 	 * Writes to the standard output the order of the tasks.
 	 */
 	private void stop() {
+		System.out.println();				//new line
 		tasks.sort(Task.EndTimeComparator); //sorting b end-time
 		for(int i = 0; i < tasks.size(); i++){
 			Task temp = tasks.get(i);

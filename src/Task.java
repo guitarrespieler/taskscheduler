@@ -31,8 +31,9 @@ public class Task {
 	public void run(int runningtime){
 		int counter = 0;
 		while(runningtime != 0 && remainingCpuBurst != 0){
-			while(counter != 500*runningtime)	//doing some stuff...
+			while(counter != 50*runningtime)	//doing some stuff...
 				counter++;
+			counter = 0;
 			remainingCpuBurst--;				//if equals 0, break
 			runningtime--;						//if equals 0, break
 		}
