@@ -30,10 +30,13 @@ public class Task {
 	 */
 	public void run(int runningtime){
 		int counter = 0;
-		while(counter != 500*runningtime)//doing some stuff...
-			counter++;
-		cpuBurst-= runningtime;
-		System.out.print(name);//writing out it's own name
+		while(runningtime != 0 && cpuBurst != 0){
+			while(counter != 500*runningtime)	//doing some stuff...
+				counter++;
+			cpuBurst--;							//if equals 0, break
+			runningtime--;						//if equals 0, break
+		}
+		System.out.print(name);					//writing out it's own name
 	}
 	
 	public static Comparator<Task> CpuBurstComparator = new Comparator<Task>(){
