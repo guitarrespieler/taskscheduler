@@ -6,7 +6,7 @@ public class MainScheduler{
 	private int counter = 0;
 	private int interruptCounter = 42;
 	
-	private ArrayList<Task> tasks = new ArrayList<Task>(10);
+	private ArrayList<Task> tasks = new ArrayList<Task>();
 	
 	private ArrayList<Task> run = new ArrayList<Task>();
 	
@@ -19,8 +19,7 @@ public class MainScheduler{
 	public void start() {
 		
 		int sjf = 1;
-		int rr = 1;
-		
+		int rr = 1;		
 		
 		while(interruptCounter > 0){	//if there was 42 cycles without 
 										//new task, exit from loop
@@ -48,9 +47,7 @@ public class MainScheduler{
 	 * Writes to the standard output the order of the tasks.
 	 */
 	private void stop() {
-		for(int i = 0; i < run.size(); i++)
-			System.out.print(run.get(i).getName());
-		System.out.println();
+		tasks.sort(Task.EndTimeComparator); //sorting b end-time
 		for(int i = 0; i < tasks.size(); i++){
 			Task temp = tasks.get(i);
 			System.out.print(temp.getName()+":"+temp.getWaitingTime());

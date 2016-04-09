@@ -25,10 +25,14 @@ public class RRScheduler implements Scheduler{
 		task.run(2);	//this RR Scheduler is preemptive - 
 						//it gives for the task 2 slices of time
 						//to run
-		if(task.getCpuBurst() == 0)
+		if(task.getCpuBurst() <= 0){
 			task.setWaitingTime(counter - task.getInitialCpuBurst() + task.getStartTime());//counting waiting time
+			task.setEndTime(counter);	//setting the endtime of the task
+		}
+			
 		else if(task.getCpuBurst() > 0)
 			addTask(task);	//put back to the end of the queue
+		
 		return 1;
 	}
 

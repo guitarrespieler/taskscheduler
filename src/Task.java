@@ -7,6 +7,7 @@ public class Task {
 	private int cpuBurst = 0;		//changes dinamically
 	private int initialCpuBurst = 0;//never changes
 	private int waitingTime = 0;	//number of cycles the task has waited
+	private int endTime = 0;
 	
 	/**
 	 * A taszk konstruktora, a kapott paraméterekbõl
@@ -39,6 +40,13 @@ public class Task {
 		public int compare(Task t1, Task t2){
 			Integer i1 = t1.cpuBurst;
 			Integer i2 = t2.cpuBurst;
+			return i2.compareTo(i1);
+		}		
+	};	
+	public static Comparator<Task> EndTimeComparator = new Comparator<Task>(){
+		public int compare(Task t1, Task t2){
+			Integer i1 = t1.endTime;
+			Integer i2 = t2.endTime;
 			return i2.compareTo(i1);
 		}		
 	};	
@@ -77,6 +85,12 @@ public class Task {
 	}
 	public void setCpuBurst(int cpuBurst) {
 		this.cpuBurst = cpuBurst;
+	}
+	public int getEndTime() {
+		return endTime;
+	}
+	public void setEndTime(int endTime) {
+		this.endTime = endTime;
 	}
 	
 	
