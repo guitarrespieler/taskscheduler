@@ -24,9 +24,9 @@ public class SJFScheduler implements Scheduler{
 		
 		MainScheduler.counter+= cpuBurstTemp;
 		
-		if(task.getCpuBurst() <= 0)
+		if(task.getCpuBurst() == 0)
 			task.setWaitingTime(MainScheduler.counter - 
-					task.getInitialCpuBurst() +
+					task.getInitialCpuBurst() -
 					task.getStartTime());
 		return 1;
 	}
