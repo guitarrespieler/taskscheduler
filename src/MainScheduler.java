@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class MainScheduler{
 	private Scheduler firstLevelSch = new SJFScheduler();
 	private Scheduler secondLevelSch = new RRScheduler(2);
-	private int counter = 0;
+	public static int counter = 0;
 	private int interruptCounter = 42;
 	
 	private ArrayList<Task> tasks = new ArrayList<Task>();	//it's for research purposes 
@@ -32,13 +32,13 @@ public class MainScheduler{
 			}
 		//run it until it has something to run
 			while(sjf != 0)
-				sjf = firstLevelSch.runTask(counter);
+				sjf = firstLevelSch.runTask();
 			
-			rr = secondLevelSch.runTask(counter);
+			rr = secondLevelSch.runTask();
 			
 			if(sjf == 0 && rr == 0)
 				interruptCounter--;
-			counter++;
+//			counter++;
 		}
 		stop();
 	}
