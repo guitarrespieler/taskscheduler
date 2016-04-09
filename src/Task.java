@@ -1,16 +1,42 @@
+import java.util.Comparator;
 
 public class Task {
-	private String name = "";
-	private int priority = 0;
-	private int startTime = 0;
-	private int cpuBurst = 0;
-	private int waitingTime = 0;	
+	private String name = "";		//name of the task ( for example: "A")
+	private int priority = 0;		//the task's priority(0..9)
+	private int startTime = 0;		//the time when the task arrives
+	private int cpuBurst = 0;		//changes dinamically
+	private int initialCpuBurst = 0;//never changes
+	private int waitingTime = 0;	//number of cycles the task has waited
+	
+	public static Comparator<Task> CpuBurstComparator = new Comparator<Task>(){
+		public int compare(Task t1, Task t2){
+			Integer i1 = t1.cpuBurst;
+			Integer i2 = t2.cpuBurst;
+			return i2.compareTo(i1);
+		}		
+	};
+	
+	public int getInitialCpuBurst() {
+		return initialCpuBurst;
+	}
 
+
+	public void setInitialCpuBurst(int initialCpuBurst) {
+		this.initialCpuBurst = initialCpuBurst;
+	}
+	
+
+	
+	/**
+	 * This method simulates the real tasks' runtime.
+	 * @param runningtime - the number of time task can run
+	 */
 	public void run(int runningtime){
 		int counter = 0;
 		while(counter != 500*runningtime)
 			counter++;//doing some stuff...
 		cpuBurst-= runningtime;
+		System.out.print(name);//writing out it's name
 	}
 	
 	
@@ -30,11 +56,12 @@ public class Task {
 	 * @param starttime - a taszk indítási ideje, a következõ idõszeletben már futhat(>=0)
 	 * @param burst - a taszk löketideje (>=1)
 	 */
-	Task(String taskname, int prior, int starttime,int burst){
+	Task(String taskname, int prior, int starttime,int initburst){
 		name = taskname;
 		priority = prior;
 		startTime = starttime;
-		cpuBurst = burst;
+		initialCpuBurst = initburst;
+		cpuBurst = initialCpuBurst;
 	}
 	
 	public String getName() {
@@ -61,4 +88,6 @@ public class Task {
 	public void setCpuBurst(int cpuBurst) {
 		this.cpuBurst = cpuBurst;
 	}
+	
+	
 }

@@ -4,10 +4,10 @@ public class MainScheduler{
 	private Scheduler firstLevelSch = new SJFScheduler();
 	private Scheduler secondLevelSch = new RRScheduler();
 	private int counter = 0;
+	private int interruptCounter = 42;
 	
 	private ArrayList<Task> tasks = new ArrayList<Task>(10);
 	
-	private Task idle = new Task("Idle",0,0,42);
 	private ArrayList<Task> run = new ArrayList<Task>();
 	
 	public void addTask(Task newTask) {
@@ -20,15 +20,20 @@ public class MainScheduler{
 		
 		firstLevelSch.order();
 		secondLevelSch.order();
+		int sjf = 1;
+		int rr = 1;
 		
-		while(idle.getCpuBurst() > 0){	//if there was 42 cycles without 
+		
+		while(interruptCounter > 0){	//if there was 42 cycles without 
 										//new task, exit from loop
-			int sjf = firstLevelSch.runTask();
+			while(sjf != 0)
+				sjf = firstLevelSch.runTask(counter);
 			
-			int rr = secondLevelSch.runTask();
+			rr = secondLevelSch.runTask(counter);
 			
 			if(sjf == 0 && rr == 0)
-//				idle.run();					//There is nothing to run, call idle task
+				interruptCounter--;
+			counter++;
 		}
 		stop();
 	}
