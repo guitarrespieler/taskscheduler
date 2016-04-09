@@ -44,14 +44,14 @@ public class Task {
 		public int compare(Task t1, Task t2){
 			Integer i1 = t1.remainingCpuBurst;
 			Integer i2 = t2.remainingCpuBurst;
-			return i2.compareTo(i1);
+			return i1.compareTo(i2);
 		}		
 	};	
 	public static Comparator<Task> EndTimeComparator = new Comparator<Task>(){
 		public int compare(Task t1, Task t2){
 			Integer i1 = t1.endTime;
 			Integer i2 = t2.endTime;
-			return i2.compareTo(i1);
+			return i1.compareTo(i2);
 		}		
 	};	
 	public int getInitialCpuBurst() {

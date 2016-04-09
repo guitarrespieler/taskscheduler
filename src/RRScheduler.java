@@ -2,7 +2,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class RRScheduler implements Scheduler{
-	Queue<Task> tasks;
+	LinkedList<Task> tasks;
 	int timeSlice;
 	
 	RRScheduler(int timeslice){
@@ -10,7 +10,7 @@ public class RRScheduler implements Scheduler{
 		timeSlice = timeslice;
 	}
 	public void addTask(Task newTask) {
-		tasks.add(newTask);
+		tasks.addLast(newTask);		
 	}
 
 	/**
@@ -21,7 +21,7 @@ public class RRScheduler implements Scheduler{
 		if(tasks.isEmpty())
 			return 0;						//return if there is no task to run
 
-		Task task = tasks.poll();
+		Task task = tasks.pollFirst();
 		
 		int cpuburstTemp = task.getCpuBurst();
 		if (cpuburstTemp >= timeSlice){
@@ -42,7 +42,7 @@ public class RRScheduler implements Scheduler{
 		}
 		if(task.getCpuBurst() == 0){
 			task.setWaitingTime(MainScheduler.counter - 	//counting waiting time
-					task.getInitialCpuBurst() +
+					task.getInitialCpuBurst() -
 					task.getStartTime());	
 			task.setEndTime(MainScheduler.counter);			//setting the endtime of the task
 		}

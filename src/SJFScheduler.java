@@ -24,10 +24,12 @@ public class SJFScheduler implements Scheduler{
 		
 		MainScheduler.counter+= cpuBurstTemp;
 		
-		if(task.getCpuBurst() == 0)
-			task.setWaitingTime(MainScheduler.counter - 
+		if(task.getCpuBurst() == 0){
+			task.setWaitingTime(MainScheduler.counter - 	//counting waiting time
 					task.getInitialCpuBurst() -
-					task.getStartTime());
+					task.getStartTime());	
+			task.setEndTime(MainScheduler.counter);			//setting the endtime of the task
+		}
 		return 1;
 	}
 }

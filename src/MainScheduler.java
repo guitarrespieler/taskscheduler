@@ -29,28 +29,32 @@ public class MainScheduler{
 		//run it until it has something to run
 			while(sjf != 0){
 				sjf = firstLevelSch.runTask();
-				MainScheduler.counter++;
 			}
 			
 			
 			isTaskArrived();			//arrived new task?
 			rr = secondLevelSch.runTask();
-			MainScheduler.counter++;
 			
 			if(sjf == 0 && rr == 0)
 				interruptCounter--;			
 		}
 		stop();
 	}
+	
+	/**
+	 * Contains the last time when this method called
+	 */
+	private int lastcounter = 0;
 	/**
 	 * When the task arrives, give it to the scheduler.
 	 */
 	private void isTaskArrived(){
 		for(int i = 0; i < tasks.size(); i++){
 			Task temp = tasks.get(i);
-			if(temp.getStartTime() <= MainScheduler.counter && temp.getCpuBurst() == temp.getInitialCpuBurst())
+			if((temp.getStartTime() <= MainScheduler.counter)&& (temp.getCpuBurst() >= lastcounter))
 				order(temp);
 		}
+		lastcounter = MainScheduler.counter;
 	}
 	/**
 	 * Writes to the standard output the order of the tasks.
