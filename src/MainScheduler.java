@@ -6,7 +6,9 @@ public class MainScheduler{
 	private int counter = 0;
 	private int interruptCounter = 42;
 	
-	private ArrayList<Task> tasks = new ArrayList<Task>();
+	private ArrayList<Task> tasks = new ArrayList<Task>();	//it's for research purposes 
+															//(to write out the waiting times at the end of the app
+															//we have to know the given tasks reference)
 		
 	public void addTask(Task newTask) {
 		if(tasks.size() > 10)	//10 taszknál több nem fér be, kilépünk

@@ -8,7 +8,6 @@ public class SJFScheduler implements Scheduler{
 		tasks.add(newTask);
 	}
 
-
 	/**
 	 * *return - number of tasks run( 0 - 0 task started run)
 	 */
@@ -20,7 +19,7 @@ public class SJFScheduler implements Scheduler{
 									//comparator was given to the ctor, so it does the work.
 				
 		task.run(task.getCpuBurst());	//this SJF is not preemptive - 
-							//the task runs until it is done.
+										//the task runs until it is done.
 		if(task.getCpuBurst() == 0)
 			task.setWaitingTime(counter - task.getInitialCpuBurst() + task.getStartTime());
 		return 1;
