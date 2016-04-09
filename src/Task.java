@@ -8,46 +8,6 @@ public class Task {
 	private int initialCpuBurst = 0;//never changes
 	private int waitingTime = 0;	//number of cycles the task has waited
 	
-	public static Comparator<Task> CpuBurstComparator = new Comparator<Task>(){
-		public int compare(Task t1, Task t2){
-			Integer i1 = t1.cpuBurst;
-			Integer i2 = t2.cpuBurst;
-			return i2.compareTo(i1);
-		}		
-	};
-	
-	public int getInitialCpuBurst() {
-		return initialCpuBurst;
-	}
-
-
-	public void setInitialCpuBurst(int initialCpuBurst) {
-		this.initialCpuBurst = initialCpuBurst;
-	}
-	
-
-	
-	/**
-	 * This method simulates the real tasks' runtime.
-	 * @param runningtime - the number of time task can run
-	 */
-	public void run(int runningtime){
-		int counter = 0;
-		while(counter != 500*runningtime)
-			counter++;//doing some stuff...
-		cpuBurst-= runningtime;
-		System.out.print(name);//writing out it's name
-	}
-	
-	
-	public int getWaitingTime() {
-		return waitingTime;
-	}
-
-	public void setWaitingTime(int waitingTime) {
-		this.waitingTime = waitingTime;
-	}
-
 	/**
 	 * A taszk konstruktora, a kapott paraméterekbõl
 	 * létrehozza a kívánt taszk-példányt.
@@ -63,7 +23,37 @@ public class Task {
 		initialCpuBurst = initburst;
 		cpuBurst = initialCpuBurst;
 	}
+	/**
+	 * This method simulates the real tasks' runtime.
+	 * @param runningtime - the number of timeslices the task can run
+	 */
+	public void run(int runningtime){
+		int counter = 0;
+		while(counter != 500*runningtime)
+			counter++;//doing some stuff...
+		cpuBurst-= runningtime;
+		System.out.print(name);//writing out it's name
+	}
 	
+	public static Comparator<Task> CpuBurstComparator = new Comparator<Task>(){
+		public int compare(Task t1, Task t2){
+			Integer i1 = t1.cpuBurst;
+			Integer i2 = t2.cpuBurst;
+			return i2.compareTo(i1);
+		}		
+	};	
+	public int getInitialCpuBurst() {
+		return initialCpuBurst;
+	}
+	public void setInitialCpuBurst(int initialCpuBurst) {
+		this.initialCpuBurst = initialCpuBurst;
+	}	
+	public int getWaitingTime() {
+		return waitingTime;
+	}
+	public void setWaitingTime(int waitingTime) {
+		this.waitingTime = waitingTime;
+	}	
 	public String getName() {
 		return name;
 	}

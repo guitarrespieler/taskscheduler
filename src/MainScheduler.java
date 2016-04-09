@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class MainScheduler{
 	private Scheduler firstLevelSch = new SJFScheduler();
-	private Scheduler secondLevelSch = new RRScheduler();
+	private Scheduler secondLevelSch = new RRScheduler(2);
 	private int counter = 0;
 	private int interruptCounter = 42;
 	
@@ -13,19 +13,25 @@ public class MainScheduler{
 	public void addTask(Task newTask) {
 		if(tasks.size() > 10)	//10 taszknál több nem fér be, kilépünk
 			return;
-		order(newTask);
+		tasks.add(newTask);
 	}
 	
 	public void start() {
 		
-		firstLevelSch.order();
-		secondLevelSch.order();
 		int sjf = 1;
 		int rr = 1;
 		
 		
 		while(interruptCounter > 0){	//if there was 42 cycles without 
 										//new task, exit from loop
+		
+		//When the task arrives, give it to the scheduler
+			for(int i = 0; i < tasks.size(); i++){
+				Task temp = tasks.get(i);
+				if(temp.getStartTime() == counter)
+					order(temp);
+			}
+		//run it until it has something to run
 			while(sjf != 0)
 				sjf = firstLevelSch.runTask(counter);
 			

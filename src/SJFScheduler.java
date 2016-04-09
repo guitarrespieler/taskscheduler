@@ -1,17 +1,13 @@
 import java.util.ArrayList;
+import java.util.PriorityQueue;
 
 public class SJFScheduler implements Scheduler{
-	ArrayList<Task> tasks = new ArrayList();
-	@Override
+	PriorityQueue<Task> tasks = new PriorityQueue<Task>(Task.CpuBurstComparator);
+	
 	public void addTask(Task newTask) {
-		// TODO Auto-generated method stub
+		tasks.add(newTask);
 	}
 
-	@Override
-	public void order() {
-		// TODO Auto-generated method stub
-		
-	}
 
 	/**
 	 * *return - number of tasks run( 0 - 0 task started run)
@@ -19,7 +15,9 @@ public class SJFScheduler implements Scheduler{
 	public int runTask(int counter) {
 		if(tasks.isEmpty())
 			return 0;	//return if there is no task to run
-		Task task = tasks.get(tasks.size()-1);//getting the next task
+		Task task = tasks.poll();	//getting the next task from the end of the queue
+									//the queue sort itself when poll called, 
+									//comparator was given to the ctor, so it does the work.
 				
 		task.run(task.getCpuBurst());	//this SJF is not preemptive - 
 							//the task runs until it is done.
