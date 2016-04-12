@@ -15,25 +15,34 @@ public class RRScheduler implements Scheduler{
 
 	/**
 	 * @param counter - the point of time when it called
-	 * *return - number of tasks run( 0 - 0 task started run)
+	 * *return - name of running task
 	 */
-	public int runTask() {
+	public String runTask() {
+		String returnvalue = "";
 		if(tasks.isEmpty())
-			return 0;						//return if there is no task to run
-
+			return returnvalue;						//return if there is no task to run
+		
 		Task task = tasks.pollFirst();
 		
 		int cpuburstTemp = task.getCpuBurst();
 		if (cpuburstTemp >= timeSlice){
-			task.run(timeSlice);			//this RR Scheduler is preemptive - 
-											//it gives for the task 2 slices of time
-											//to run
-			MainScheduler.counter+= timeSlice;
+			int i = timeSlice;
+			while(i != 0){
+				task.run(1);
+				MainScheduler.incCounter();
+				i--;
+			}			
 		}
 		else if(cpuburstTemp < timeSlice){
-//			if(tasks.isEmpty()){
-				task.run(cpuburstTemp);		
-				MainScheduler.counter+= cpuburstTemp;	
+			int x = timeSlice;
+			while(x != 0){
+				task.run(1);
+				MainScheduler.incCounter();
+				x--;
+				if(task.getCpuBurst()== 0 && x != 0)
+					task = tasks.pollFirst();
+			}
+				
 //			}
 //			else if(!tasks.isEmpty()){
 //				this.addTask(task);			//put it back to the end of the queue,don't run
