@@ -24,24 +24,24 @@ public class RRScheduler implements Scheduler{
 		
 		Task task = tasks.pollFirst();
 		
-		int cpuburstTemp = task.getCpuBurst();
-		if (cpuburstTemp >= timeSlice){
-			int i = timeSlice;
-			while(i != 0){
-				task.run(1);
-				MainScheduler.incCounter();
-				i--;
-			}
-			if(task.getCpuBurst() > 0)
-				tasks.addLast(task);							//put it back to the queue
-			if(task.getCpuBurst() == 0){
-				task.setWaitingTime(MainScheduler.counter - 	//counting waiting time
-						task.getInitialCpuBurst() -
-						task.getStartTime());	
-				task.setEndTime(MainScheduler.counter);			//setting the endtime of the task
-			}
-		}
-		else if(cpuburstTemp < timeSlice){
+//		int cpuburstTemp = task.getCpuBurst();
+//		if (cpuburstTemp >= timeSlice){
+//			int i = timeSlice;
+//			while(i != 0){
+//				task.run(1);
+//				MainScheduler.incCounter();
+//				i--;
+//			}
+//			if(task.getCpuBurst() > 0)
+//				tasks.addLast(task);							//put it back to the queue
+//			if(task.getCpuBurst() == 0){
+//				task.setWaitingTime(MainScheduler.counter - 	//counting waiting time
+//						task.getInitialCpuBurst() -
+//						task.getStartTime());	
+//				task.setEndTime(MainScheduler.counter);			//setting the endtime of the task
+//			}
+//		}
+//		else if(cpuburstTemp < timeSlice){
 			int x = timeSlice;
 			while(x != 0){
 				task.run(1);
@@ -56,15 +56,14 @@ public class RRScheduler implements Scheduler{
 					
 					task = tasks.pollFirst();//one more task to run, we have some time!
 				}
-				returnvalue = returnvalue + task.getName();	
+				if(task.getCpuBurst() > 0 && x == 0){
+					tasks.addLast(task);							//put it back to the queue
+					returnvalue = returnvalue + task.getName();
+				}					
 			}
-		}
+//		}
 		
-			
-		else if(task.getCpuBurst() > 0)
-			addTask(task);									//put back to the end of the queue
-		
-		return 1;
+		return returnvalue;
 	}
 	public boolean isEmpty() {
 		return tasks.isEmpty();
