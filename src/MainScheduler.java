@@ -23,18 +23,16 @@ public class MainScheduler{
 		
 		//run it until it has something to run
 			while(!firstLevelSch.isEmpty()){
-				firstLevelSch.runTask();
-				isTaskArrived();		//arrived new task?
-
-			}	
+				System.out.println(firstLevelSch.runTask()); //running task + writing out its name
+			}
+			//call RR only once in 1 cycle
 			secondLevelSch.runTask();
-			isTaskArrived();
-//			if(firstLevelSch.isEmpty() && secondLevelSch.isEmpty())
-//			{
+			
+			if(firstLevelSch.isEmpty() && secondLevelSch.isEmpty())
+			{
 				interruptCounter--;		
-//				MainScheduler.counter++;
-//			}
-					
+				MainScheduler.counter++;
+			}	
 		}
 		stop();
 	}
@@ -50,7 +48,8 @@ public class MainScheduler{
 		}
 	}
 	/**
-	 * Writes to the standard output the order of the tasks.
+	 * Writes to the standard output the order of the tasks
+	 * and thier waiting times.
 	 */
 	private void stop() {
 		System.out.println();				//new line
@@ -71,6 +70,10 @@ public class MainScheduler{
 			else
 				firstLevelSch.addTask(t);		
 	}
+	/**
+	 * This method increments the counter 
+	 * and calls isTaskArrived()
+	 */
 	public static void incCounter(){
 		counter++;
 		isTaskArrived();
