@@ -1,10 +1,12 @@
+import java.util.LinkedList;
 import java.util.PriorityQueue;
 
 public class SJFScheduler implements Scheduler{
-	PriorityQueue<Task> tasks = new PriorityQueue<Task>(Task.CpuBurstComparator);
+	LinkedList<Task> tasks = new LinkedList<Task>();
 	
 	public void addTask(Task newTask) {
 		tasks.add(newTask);
+		tasks.sort(Task.CpuBurstComparator);
 	}
 
 	/**
@@ -18,9 +20,15 @@ public class SJFScheduler implements Scheduler{
 									//the queue sort itself when poll called, 
 									//comparator was given to the ctor, so it does the work.
 		
-		int cpuBurstTemp = task.getCpuBurst();		
-		task.run(cpuBurstTemp);	//this SJF is not preemptive - 
-								//the task runs until it is done.
+		int cpuBurstTemp = task.getCpuBurst();
+		
+		//this SJF is not preemptive - 
+		//the task runs until it is done.
+		while(task.getCpuBurst() != 0){
+			task.run(1);
+			MainScheduler.incCounter(); //increments the main counter
+		}
+			
 		
 		MainScheduler.counter+= cpuBurstTemp;
 		
@@ -31,5 +39,8 @@ public class SJFScheduler implements Scheduler{
 			task.setEndTime(MainScheduler.counter);			//setting the endtime of the task
 		}
 		return 1;
+	}
+	public boolean isEmpty() {
+		return tasks.isEmpty();
 	}
 }

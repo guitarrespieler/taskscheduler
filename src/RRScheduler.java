@@ -52,5 +52,8 @@ public class RRScheduler implements Scheduler{
 		
 		return 1;
 	}
+	public boolean isEmpty() {
+		return tasks.isEmpty();
+	}
 
 }
