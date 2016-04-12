@@ -31,7 +31,15 @@ public class RRScheduler implements Scheduler{
 				task.run(1);
 				MainScheduler.incCounter();
 				i--;
-			}			
+			}
+			if(task.getCpuBurst() > 0)
+				tasks.addLast(task);							//put it back to the queue
+			if(task.getCpuBurst() == 0){
+				task.setWaitingTime(MainScheduler.counter - 	//counting waiting time
+						task.getInitialCpuBurst() -
+						task.getStartTime());	
+				task.setEndTime(MainScheduler.counter);			//setting the endtime of the task
+			}
 		}
 		else if(cpuburstTemp < timeSlice){
 			int x = timeSlice;
@@ -39,22 +47,19 @@ public class RRScheduler implements Scheduler{
 				task.run(1);
 				MainScheduler.incCounter();
 				x--;
-				if(task.getCpuBurst()== 0 && x != 0)
-					task = tasks.pollFirst();
+				if(task.getCpuBurst()== 0 && x != 0){
+					task.setWaitingTime(MainScheduler.counter - 	//counting waiting time
+							task.getInitialCpuBurst() -
+							task.getStartTime());	
+					task.setEndTime(MainScheduler.counter);			//setting the endtime of the task
+					returnvalue = returnvalue + task.getName();
+					
+					task = tasks.pollFirst();//one more task to run, we have some time!
+				}
+				returnvalue = returnvalue + task.getName();	
 			}
-				
-//			}
-//			else if(!tasks.isEmpty()){
-//				this.addTask(task);			//put it back to the end of the queue,don't run
-//				return 0;
-//			}
 		}
-		if(task.getCpuBurst() == 0){
-			task.setWaitingTime(MainScheduler.counter - 	//counting waiting time
-					task.getInitialCpuBurst() -
-					task.getStartTime());	
-			task.setEndTime(MainScheduler.counter);			//setting the endtime of the task
-		}
+		
 			
 		else if(task.getCpuBurst() > 0)
 			addTask(task);									//put back to the end of the queue
