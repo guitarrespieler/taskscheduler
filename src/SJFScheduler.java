@@ -26,7 +26,8 @@ public class SJFScheduler implements Scheduler{
 		//the task runs until it is done.
 		while(task.getCpuBurst() != 0){
 			task.run(1);
-			MainScheduler.incCounter(); //increments the main counter
+			MainScheduler.counter++; //increments the main counter
+			MainScheduler.isTaskArrived();
 		}
 				
 		if(task.getCpuBurst() == 0){

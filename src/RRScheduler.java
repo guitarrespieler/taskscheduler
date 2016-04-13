@@ -24,7 +24,7 @@ public class RRScheduler implements Scheduler{
 		int x = timeSlice;
 		while(x != 0){
 			task.run(1);
-			MainScheduler.incCounter();
+			MainScheduler.counter++;
 			x--;
 			if(task.getCpuBurst()== 0){
 				task.setWaitingTime(MainScheduler.counter - 	//counting waiting time
@@ -32,15 +32,18 @@ public class RRScheduler implements Scheduler{
 						task.getStartTime());	
 				task.setEndTime(MainScheduler.counter);			//setting the endtime of the task
 				returnvalue = returnvalue + task.getName();
+				MainScheduler.isTaskArrived();
 				if(!tasks.isEmpty() && x != 0){
 					task = tasks.remove(0);	//one more task to run, we have some time!
 					x = 2;
+					
 				}					
 				else if(tasks.isEmpty())
 					break;
 			}
 			if(task.getCpuBurst() > 0 && x == 0){
 				tasks.add(task);								//put it back to the queue
+				MainScheduler.isTaskArrived();
 				returnvalue = returnvalue + task.getName();
 			}			
 			

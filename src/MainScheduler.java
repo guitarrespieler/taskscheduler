@@ -23,15 +23,15 @@ public class MainScheduler{
 		
 		//run it until it has something to run
 			while(!firstLevelSch.isEmpty()){
-				String s = firstLevelSch.runTask(); //run task + writing out its name
-				if(!lastName.equals(s))
-					System.out.print(s);
-				lastName = s;
+				String s1 = firstLevelSch.runTask(); //run task + writing out its name
+				if(!lastName.equals(s1))
+					System.out.print(s1);
+				lastName = s1;
 			}
 			//call RR only once in 1 cycle
-			String s = secondLevelSch.runTask();
-			if(s.length()==2){						// a little magic for the HW-portal ;)
-				String[] array = s.split("");
+			String s2 = secondLevelSch.runTask();
+			if(s2.length()==2){						// a little magic for the HW-portal ;)
+				String[] array = s2.split("");
 				String first = array[0];
 				String second = array[1];
 				if(!lastName.equals(first)){
@@ -42,15 +42,16 @@ public class MainScheduler{
 					System.out.print(second);
 					lastName = second;
 				}
-			}else if(s.length() == 1 && !lastName.equals(s)){
-				System.out.print(s);
-				lastName = s;		
+			}else if(s2.length() == 1 && !lastName.equals(s2)){
+				System.out.print(s2);
+				lastName = s2;		
 			}
 			
 			if(firstLevelSch.isEmpty() && secondLevelSch.isEmpty())
 			{
 				interruptCounter--;		
-				incCounter();
+				MainScheduler.counter++;
+				MainScheduler.isTaskArrived();
 			}	
 		}
 		stop();
@@ -59,7 +60,7 @@ public class MainScheduler{
 	/**
 	 * When the task arrives, this method gives it to the scheduler.
 	 */
-	private static void isTaskArrived(){
+	public static void isTaskArrived(){
 		for(int i = 0; i < tasks.size(); i++){
 			Task temp = tasks.get(i);
 			if(temp.getStartTime() == MainScheduler.counter)
@@ -89,12 +90,12 @@ public class MainScheduler{
 			else
 				firstLevelSch.addTask(t);		
 	}
-	/**
-	 * This method increments the counter 
-	 * and calls isTaskArrived()
-	 */
-	public static void incCounter(){
-		counter++;
-		isTaskArrived();
-	}
+//	/**
+//	 * This method increments the counter 
+//	 * and calls isTaskArrived()
+//	 */
+//	public static void incCounter(){
+//		counter++;
+//		isTaskArrived();
+//	}
 }
