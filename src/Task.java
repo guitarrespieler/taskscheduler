@@ -37,7 +37,7 @@ public class Task {
 			remainingCpuBurst--;				//if equals 0, break
 			runningtime--;						//if equals 0, break
 		}
-		System.out.print(name);					//writing out it's own name
+//		System.out.print(name);					//writing out it's own name
 	}
 	
 	public static Comparator<Task> CpuBurstComparator = new Comparator<Task>(){

@@ -23,15 +23,15 @@ public class MainScheduler{
 		
 		//run it until it has something to run
 			while(!firstLevelSch.isEmpty()){
-				System.out.println(firstLevelSch.runTask()); //running task + writing out its name
+				System.out.print(firstLevelSch.runTask()); //running task + writing out its name
 			}
 			//call RR only once in 1 cycle
-			System.out.println(secondLevelSch.runTask());
+			System.out.print(secondLevelSch.runTask());
 			
 			if(firstLevelSch.isEmpty() && secondLevelSch.isEmpty())
 			{
 				interruptCounter--;		
-				MainScheduler.counter++;
+				incCounter();
 			}	
 		}
 		stop();
@@ -53,7 +53,7 @@ public class MainScheduler{
 	 */
 	private void stop() {
 		System.out.println();				//new line
-		tasks.sort(Task.EndTimeComparator); //sorting b end-time
+		tasks.sort(Task.EndTimeComparator); //sorting by end-time
 		for(int i = 0; i < tasks.size(); i++){
 			Task temp = tasks.get(i);
 			System.out.print(temp.getName()+":"+temp.getWaitingTime());
@@ -62,7 +62,7 @@ public class MainScheduler{
 		}
 	}
 	/**
-	 * Organizes the tasks between the two scheduler.
+	 * Organizes the tasks between the two schedulers.
 	 */
 	public static void order(Task t) {
 			if(t.getPriority() > 4)

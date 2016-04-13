@@ -1,31 +1,28 @@
+import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.PriorityQueue;
-import java.util.Queue;
 
 public class SJFScheduler implements Scheduler{
-	PriorityQueue<Task> tasks = new PriorityQueue<Task>(Task.CpuBurstComparator);
+	ArrayList<Task> tasks = new ArrayList<Task>();
 	
 	/**
 	 * Adds a new task to the scheduler's list.
 	 * @param newTask - the Task you want to add.
 	 */
 	public void addTask(Task newTask) {
-		tasks.add(newTask);
+		tasks.add(newTask); 				//put it into the list
+		tasks.sort(Task.CpuBurstComparator);//shorting the list
 	}
 
 	/**
-	 * *return - name of the running task.
+	 * @return - name of the running task.
 	 */
 	public String runTask() {
 		if(tasks.isEmpty())
 			return "";				//return if there is no task to run
 		
-		Task task = tasks.poll();	//getting the next task from the end of the queue
-									//the queue sorts itself when poll called
-									//and the comparator was given to the constructor,
-									//so it will do the thing
-		
-		
+		Task task = poll();	//getting the next task from the end of the queue
+									//the queue sorts itself when addTask called
+				
 		//this SJF is not preemptive - 
 		//the task runs until it is done.
 		while(task.getCpuBurst() != 0){
@@ -43,5 +40,14 @@ public class SJFScheduler implements Scheduler{
 	}
 	public boolean isEmpty() {
 		return tasks.isEmpty();
+	}
+	/**
+	 * Own poll method to get the last element
+	 * @return
+	 */
+	private Task poll(){
+		Task temp = tasks.get(0);
+		tasks.remove(temp);
+		return temp;
 	}
 }

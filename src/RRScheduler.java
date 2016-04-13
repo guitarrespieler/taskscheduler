@@ -1,28 +1,28 @@
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
 public class RRScheduler implements Scheduler{
-	LinkedList<Task> tasks;
+	ArrayList<Task> tasks;
 	int timeSlice;
 	
 	RRScheduler(int timeslice){
-		tasks = new LinkedList<Task>();
+		tasks = new ArrayList<Task>();
 		timeSlice = timeslice;
 	}
 	public void addTask(Task newTask) {
-		tasks.addLast(newTask);		
+		tasks.add(newTask);		
 	}
 
 	/**
-	 * @param counter - the point of time when it called
-	 * *return - name of running task
+	 * *return - name of the running task
 	 */
 	public String runTask() {
 		String returnvalue = "";
 		if(tasks.isEmpty())
-			return returnvalue;						//return if there is no task to run
+			return returnvalue;									//return if there is no task to run
 		
-		Task task = tasks.pollFirst();
+		Task task = tasks.get(0);
 		
 //		int cpuburstTemp = task.getCpuBurst();
 //		if (cpuburstTemp >= timeSlice){
@@ -54,10 +54,10 @@ public class RRScheduler implements Scheduler{
 					task.setEndTime(MainScheduler.counter);			//setting the endtime of the task
 					returnvalue = returnvalue + task.getName();
 					
-					task = tasks.pollFirst();//one more task to run, we have some time!
+					task = tasks.get(0);//one more task to run, we have some time!
 				}
 				if(task.getCpuBurst() > 0 && x == 0){
-					tasks.addLast(task);							//put it back to the queue
+					tasks.add(task);							//put it back to the queue
 					returnvalue = returnvalue + task.getName();
 				}					
 			}
