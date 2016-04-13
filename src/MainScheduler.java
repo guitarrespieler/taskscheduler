@@ -30,9 +30,20 @@ public class MainScheduler{
 			}
 			//call RR only once in 1 cycle
 			String s = secondLevelSch.runTask();
-			if(!lastName.equals(s))
+			if(s.length()==2){						// a little magic for the HW-portal ;)
+				String first = s.substring(0,0);
+				String second = s.substring(1,1);
+				if(!lastName.equals(first)){
+					System.out.print(first);
+					lastName = first;					
+				}
+				if(!lastName.equals(second)){
+								
+				}
+			}else if(s.length() == 1){
 				System.out.print(s);
-			lastName = s;
+				lastName = s;		
+			}
 			
 			if(firstLevelSch.isEmpty() && secondLevelSch.isEmpty())
 			{
