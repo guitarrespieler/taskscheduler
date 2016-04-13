@@ -23,7 +23,7 @@ public class MainScheduler{
 		
 		//run it until it has something to run
 			while(!firstLevelSch.isEmpty()){
-				System.out.print(firstLevelSch.runTask()); //running task + writing out its name
+				System.out.print(firstLevelSch.runTask()); //runn task + writing out its name
 			}
 			//call RR only once in 1 cycle
 			System.out.print(secondLevelSch.runTask());
