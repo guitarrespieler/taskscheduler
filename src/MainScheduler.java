@@ -31,16 +31,18 @@ public class MainScheduler{
 			//call RR only once in 1 cycle
 			String s = secondLevelSch.runTask();
 			if(s.length()==2){						// a little magic for the HW-portal ;)
-				String first = s.substring(0,0);
-				String second = s.substring(1,1);
+				String[] array = s.split("");
+				String first = array[0];
+				String second = array[1];
 				if(!lastName.equals(first)){
 					System.out.print(first);
 					lastName = first;					
 				}
 				if(!lastName.equals(second)){
-								
+					System.out.print(second);
+					lastName = second;
 				}
-			}else if(s.length() == 1){
+			}else if(s.length() == 1 && !lastName.equals(lastName)){
 				System.out.print(s);
 				lastName = s;		
 			}
