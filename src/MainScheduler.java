@@ -9,7 +9,7 @@ public class MainScheduler{
 	private static ArrayList<Task> tasks = new ArrayList<Task>();	//it's for research purposes 
 																	//(to write out the waiting times at the end of the app
 																	//we have to know the given tasks reference)
-		
+	String lastName = "";	
 	public void addTask(Task newTask) {
 		if(tasks.size() > 10)	//The limit is max 10 tasks
 			return;
@@ -23,10 +23,16 @@ public class MainScheduler{
 		
 		//run it until it has something to run
 			while(!firstLevelSch.isEmpty()){
-				System.out.print(firstLevelSch.runTask()); //run task + writing out its name
+				String s = firstLevelSch.runTask(); //run task + writing out its name
+				if(!lastName.equals(s))
+					System.out.print(s);
+				lastName = s;
 			}
 			//call RR only once in 1 cycle
-			System.out.print(secondLevelSch.runTask());
+			String s = secondLevelSch.runTask();
+			if(!lastName.equals(s))
+				System.out.print(s);
+			lastName = s;
 			
 			if(firstLevelSch.isEmpty() && secondLevelSch.isEmpty())
 			{
