@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class SJFScheduler implements Scheduler{
 	ArrayList<Task> tasks = new ArrayList<Task>();

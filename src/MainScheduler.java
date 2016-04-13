@@ -4,26 +4,26 @@ public class MainScheduler{
 	private static Scheduler firstLevelSch = new SJFScheduler();
 	private static Scheduler secondLevelSch = new RRScheduler(2);
 	public static int counter = 0;
-	private int interruptCounter = 420;
+	private int interruptCounter = 42;
 	
 	private static ArrayList<Task> tasks = new ArrayList<Task>();	//it's for research purposes 
-															//(to write out the waiting times at the end of the app
-															//we have to know the given tasks reference)
+																	//(to write out the waiting times at the end of the app
+																	//we have to know the given tasks reference)
 		
 	public void addTask(Task newTask) {
-		if(tasks.size() > 10)	//10 taszknál több nem fér be, kilépünk
+		if(tasks.size() > 10)	//The limit is max 10 tasks
 			return;
 		tasks.add(newTask);
 	}
 	
 	public void start() {
-		isTaskArrived();			//arrived new task?
+		isTaskArrived();				//arrived new task?
 		while(interruptCounter > 0){	//if there was 42 cycles without 
 										//new task, exit from loop
 		
 		//run it until it has something to run
 			while(!firstLevelSch.isEmpty()){
-				System.out.print(firstLevelSch.runTask()); //runn task + writing out its name
+				System.out.print(firstLevelSch.runTask()); //run task + writing out its name
 			}
 			//call RR only once in 1 cycle
 			System.out.print(secondLevelSch.runTask());
@@ -78,11 +78,4 @@ public class MainScheduler{
 		counter++;
 		isTaskArrived();
 	}
-//	/**
-//	 * Puts the given task into the run list
-//	 * @param t
-//	 */
-//	public void run(Task t){
-//		run.add(t);
-//	}
 }
