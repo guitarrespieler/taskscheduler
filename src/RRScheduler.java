@@ -32,8 +32,10 @@ public class RRScheduler implements Scheduler{
 						task.getStartTime());	
 				task.setEndTime(MainScheduler.counter);			//setting the endtime of the task
 				returnvalue = returnvalue + task.getName();
-				if(!tasks.isEmpty() && x != 0)
+				if(!tasks.isEmpty() && x != 0){
 					task = tasks.remove(0);	//one more task to run, we have some time!
+					x = 2;
+				}					
 				else if(tasks.isEmpty())
 					break;
 			}

@@ -42,7 +42,7 @@ public class MainScheduler{
 					System.out.print(second);
 					lastName = second;
 				}
-			}else if(s.length() == 1 && !lastName.equals(lastName)){
+			}else if(s.length() == 1 && !lastName.equals(s)){
 				System.out.print(s);
 				lastName = s;		
 			}
