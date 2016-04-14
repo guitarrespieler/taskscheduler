@@ -1,9 +1,11 @@
 # taskscheduler
 Java implementation of a multi-level task scheduler,which is alike a usual OS uses.
 
-English description (Hungarian description below):
+English description (Hungarian description below)
+-----------------------------------------------------------------------
 
-The scheduler handles tasks with static priority(their priority don't change dinamically). The priority is between 0 - 9 where 0 is the highest priority.
+The scheduler handles tasks with static priority(their priority don't change dinamically).
+The priority is between 0 - 9 where 0 is the highest priority.
 
 	1st level(priority: 0-4): non-preemptive SJF scheduler
 
@@ -16,7 +18,8 @@ Input:
 
 	priority of the task(0-9)
 
-	the point of time when the task arrives(integer >= 0), the task will be able to run in the next timeslice
+	the point of time when the task arrives(integer >= 0), 
+	the task will be able to run in the next timeslice
 		(if it arrives at 5s, it can start at 6s)
 
 	CPU-burst of the task(integer >= 1)
@@ -51,7 +54,6 @@ Output:
 
 Hungarian description
 -------------------------------------------------------------------------------------------------
-Magyar leírás:
 
 HF1. Többszintű ütemező megvalósítása
 
@@ -62,15 +64,18 @@ Becsült programozási idő: 1-3 óra
 
 Készítsen egy programot, amely statikus többszintű ütemező működését szimulálja!
 
-Az ütemező 0 és 9 közötti statikus prioritású (0 a legmagasabb) taszkokat kezel az alábbi szinteken és algoritmusokkal:
+Az ütemező 0 és 9 közötti statikus prioritású (0 a legmagasabb)
+taszkokat kezel az alábbi szinteken és algoritmusokkal:
 
 	1. szint (0-4 közötti prioritás) nem preemptív, SJF ütemező
 
-		(a prioritás a szinten belül már nem játszik szerepet, "vegytiszta" SJF ütemezési algoritmus működik)
+		(a prioritás a szinten belül már nem játszik szerepet,
+		"vegytiszta" SJF ütemezési algoritmus működik)
 
 	2. szint (5-9) preemptív RR ütemező, időszelet: 2
 
-		(a prioritás a szinten belül itt sem játszik szerepet, "vegytiszta" RR ütemező fut)
+		(a prioritás a szinten belül itt sem játszik szerepet,
+		"vegytiszta" RR ütemező fut)
 
 Bemenet (standard input, stdin)
 
@@ -80,7 +85,8 @@ Bemenet (standard input, stdin)
 
 		a taszk prioritása (0-9)
 
-		a taszk indítási ideje (egész szám >= 0), a következő időszeletben már futhat (0: az ütemező indításakor már létezik)
+		a taszk indítási ideje (egész szám >= 0), a következő időszeletben már futhat
+		(0: az ütemező indításakor már létezik)
 
 		a taszk CPU-löketideje (egész szám >= 1)
 
@@ -100,7 +106,8 @@ Kimenet (standard output, stdout)
 
 	A kimenet első sorában a taszkok futási sorrendje betűjeleikkel (csak betűk, szóközök nélkül).
 
-	A második sorban a teljes várakozási idő taszkonként, a befejezésük sorrendjében az alábbi formában (vesszővel elválasztva, szóközök nélkül):
+	A második sorban a teljes várakozási idő taszkonként, a befejezésük sorrendjében 
+	az alábbi formában (vesszővel elválasztva, szóközök nélkül):
 
 		1. taszk betűjel:várakozási idő,2. betűjel:várakozási idő, ...
 
@@ -118,4 +125,7 @@ Technikai információk
 
 	A programot Java nyelven kell elkészíteni, és a HF portálon kell leadni a megadott határidőig.
 
-	A beküldött Java programnak tartalmaznia kell egy "Main" nevű osztályt, melynek része a feladatot megoldó "main" függvény. A program tetszőleges számú forrásfájlból állhat. A program nem használhat a standard inputon és outputon kívül semmilyen más erőforrást, így nem végezhet fájlműveleteket és nem nyithat hálózati kapcsolatokat.
+	A beküldött Java programnak tartalmaznia kell egy "Main" nevű osztályt, melynek
+	része a feladatot megoldó "main" függvény. A program tetszőleges számú forrásfájlból állhat.
+	A program nem használhat a standard inputon és outputon kívül semmilyen más erőforrást,
+	így nem végezhet fájlműveleteket és nem nyithat hálózati kapcsolatokat.
