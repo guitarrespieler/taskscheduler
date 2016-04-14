@@ -32,40 +32,43 @@ public class MainScheduler{
 			}
 			//call RR only once in 1 cycle
 			String s2 = secondLevelSch.runTask();
-			if(s2.length()==2){						// a little magic for the HW-portal ;)
-				String[] array = s2.split("");
-				String first = array[0];
-				String second = array[1];
-				if(!lastName.equals(first)){
-					System.out.print(first);
-					lastName = first;					
-				}
-				if(!lastName.equals(second)){
-					System.out.print(second);
-					lastName = second;
-				}
-			}else if(s2.length() == 1 && !lastName.equals(s2)){
+//			if(s2.length()==2){						// a little magic for the HW-portal ;)
+//				String[] array = s2.split("");
+//				String first = array[0];
+//				String second = array[1];
+//				if(!lastName.equals(first)){
+//					System.out.print(first);
+//					lastName = first;					
+//				}
+//				if(!lastName.equals(second)){
+//					System.out.print(second);
+//					lastName = second;
+//				}
+//			}else if(s2.length() == 1 && !lastName.equals(s2)){
+//				System.out.print(s2);
+//				lastName = s2;		
+//			}else if(s2.length() == 3){
+//				String[] array = s2.split("");
+//				String first = array[0];
+//				String second = array[1];
+//				String third = array[3];
+//				if(!lastName.equals(first)){
+//					System.out.print(first);
+//					lastName = first;					
+//				}
+//				if(!lastName.equals(second)){
+//					System.out.print(second);
+//					lastName = second;
+//				}
+//				if(!lastName.equals(third)){
+//					System.out.print(third);
+//					lastName = third;
+//				}
+//			}
+			if(!lastName.equals(s2)){
 				System.out.print(s2);
-				lastName = s2;		
-			}else if(s2.length() == 3){
-				String[] array = s2.split("");
-				String first = array[0];
-				String second = array[1];
-				String third = array[3];
-				if(!lastName.equals(first)){
-					System.out.print(first);
-					lastName = first;					
-				}
-				if(!lastName.equals(second)){
-					System.out.print(second);
-					lastName = second;
-				}
-				if(!lastName.equals(third)){
-					System.out.print(third);
-					lastName = third;
-				}
 			}
-			
+			lastName = s2;
 			if(firstLevelSch.isEmpty() && secondLevelSch.isEmpty())
 			{
 				interruptCounter--;		

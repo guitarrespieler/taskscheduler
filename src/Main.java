@@ -17,7 +17,7 @@ public class Main {
 				String[] strings = s.split(",");
 				String name = strings[0];
 				int prior = Integer.parseInt(strings[1]);
-				int starttime = Integer.parseInt(strings[2]);
+				int starttime = Integer.parseInt(strings[2])+1;
 				int burst = Integer.parseInt(strings[3]);
 				utemezo.addTask(new Task(name,prior,starttime,burst));				
 			}
