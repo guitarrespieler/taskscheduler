@@ -82,13 +82,13 @@ public class MainScheduler{
 	/**
 	 * When the task arrives, this method gives it to the scheduler.
 	 */
-	public static boolean isTaskArrived(){
-		boolean x = false;
+	public static int isTaskArrived(){
+		int x = 0;
 		for(int i = 0; i < tasks.size(); i++){
 			Task temp = tasks.get(i);
 			if(temp.getStartTime() == MainScheduler.counter){
 				order(temp);
-				x = true;
+				x++;
 			}		
 		}
 		return x;

@@ -85,6 +85,7 @@ public class RRScheduler implements Scheduler{
 		while(x != 0){
 			task.run(1);
 			MainScheduler.counter++;
+			x--;
 			if(task.getCpuBurst() == 0){
 			task.setWaitingTime(MainScheduler.counter - 	//counting waiting time
 					task.getInitialCpuBurst() -
@@ -99,8 +100,8 @@ public class RRScheduler implements Scheduler{
 				return task.getName();
 			}
 			int siz = tasks.size();
-			boolean temp = MainScheduler.isTaskArrived();
-			if(temp && siz == tasks.size()){				//in this case there is new SJF task
+			int temp = MainScheduler.isTaskArrived();
+			if((temp != 0) && (siz + temp != tasks.size())){	//a SJF task come
 				 tasks.add(task);
 				 return task.getName();					 
 			}
