@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+import javax.swing.text.AbstractDocument.LeafElement;
+
 public class MainScheduler{
 	private static Scheduler firstLevelSch = new SJFScheduler();
 	private static Scheduler secondLevelSch = new RRScheduler(2);
@@ -45,6 +47,23 @@ public class MainScheduler{
 			}else if(s2.length() == 1 && !lastName.equals(s2)){
 				System.out.print(s2);
 				lastName = s2;		
+			}else if(s2.length() == 3){
+				String[] array = s2.split("");
+				String first = array[0];
+				String second = array[1];
+				String third = array[3];
+				if(!lastName.equals(first)){
+					System.out.print(first);
+					lastName = first;					
+				}
+				if(!lastName.equals(second)){
+					System.out.print(second);
+					lastName = second;
+				}
+				if(!lastName.equals(third)){
+					System.out.print(third);
+					lastName = third;
+				}
 			}
 			
 			if(firstLevelSch.isEmpty() && secondLevelSch.isEmpty())

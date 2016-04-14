@@ -32,21 +32,45 @@ public class RRScheduler implements Scheduler{
 						task.getStartTime());	
 				task.setEndTime(MainScheduler.counter);			//setting the endtime of the task
 				returnvalue = returnvalue + task.getName();
-				MainScheduler.isTaskArrived();
-				if(!tasks.isEmpty() && x != 0){
+				
+				if(x == 0){ // && task.getCpuBurst()== 0
+					MainScheduler.isTaskArrived();
+					return returnvalue;
+				}
+				if(!tasks.isEmpty() && x != 0){// && task.getCpuBurst()== 0
 					task = tasks.remove(0);	//one more task to run, we have some time!
-					x = 2;
-					
+					int y = 2;
+					while(y != 0)
+					{
+						task.run(1);
+						MainScheduler.counter++;
+						y--;
+						
+						if(task.getCpuBurst() == 0){
+							task.setWaitingTime(MainScheduler.counter - 	//counting waiting time
+									task.getInitialCpuBurst() -
+									task.getStartTime());	
+							task.setEndTime(MainScheduler.counter);			//setting the endtime of the task
+							MainScheduler.isTaskArrived();
+							return returnvalue + task.getName();
+						}
+						if(task.getCpuBurst() != 0 && y == 0){
+							tasks.add(task);	
+							MainScheduler.isTaskArrived();
+							return returnvalue + task.getName();
+						}
+						MainScheduler.isTaskArrived();
+					}															
+					return returnvalue + task.getName();
 				}					
-				else if(tasks.isEmpty())
-					break;
+				else if(tasks.isEmpty() && x != 0)// && task.getCpuBurst()== 0
+					return returnvalue;
 			}
-			if(task.getCpuBurst() > 0 && x == 0){
+			if((task.getCpuBurst() > 0) && (x == 0)){
 				tasks.add(task);								//put it back to the queue
 				MainScheduler.isTaskArrived();
-				returnvalue = returnvalue + task.getName();
+				return returnvalue + task.getName();
 			}			
-			
 		}		
 		return returnvalue;
 	}
